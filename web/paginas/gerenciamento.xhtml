@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <H1>Usuário logado #{usuarioBean.usuario.senha}</H1>
+            <p:commandButton value="Logout" action="#{usuarioBean.logout()}"></p:commandButton>
+
+            <p:fieldset legend="Gerenciar Usuários">
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Nome" rendered="true"></h:outputLabel>
+                    <p:inputText value="#{usuarioBean.usuario.nome}" ></p:inputText>
+
+                    <h:outputLabel value="Email"></h:outputLabel>
+                    <p:inputText value="#{usuarioBean.usuario.email}" ></p:inputText>
+
+                    <h:outputLabel value="Senha"></h:outputLabel>
+                    <p:password value="#{usuarioBean.usuario.senha}" ></p:password>
+
+                    <h:outputLabel value="Telefone"></h:outputLabel>
+                    <p:inputMask mask="(99) 99999-9999" value="#{usuarioBean.usuario.telefone}" ></p:inputMask>
+                </p:panelGrid>
+                <hr></hr>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:messages id="messages" showDetail="false" escape="false" closable="true">
+                            <p:effect type="pulsate" event="load" delay="800" />
+                            <p:autoUpdate/>
+                        </p:messages>
+                        <p:commandButton value="Cadastrar" action="#{usuarioBean.incluirUsuario()}" update="@form"></p:commandButton>
+                        <p:commandButton value="Consultar" action="#{usuarioBean.consultarUsuarios()}" update="@form"></p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <hr></hr>
+                <hr></hr>   
+                <p:dataTable value="#{usuarioBean.usuarios}" var="usuario">
+                    <p:column>
+                        <p:commandButton value="Alterar" action="#{usuarioBean.alterar(usuario)}" update="@form"></p:commandButton>
+                        <p:commandButton value="Excluir" action="#{usuarioBean.excluir(usuario)}" update="@form"></p:commandButton>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{usuario.nome}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <h:outputText value="#{usuario.email}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Senha">
+                        <h:outputText value="#{usuario.senha}"></h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{usuario.telefone}"></h:outputText>
+                    </p:column>
+
+                    
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+    </h:body>
+</html>
+
